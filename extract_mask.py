@@ -13,6 +13,9 @@ import model as modellib
 import visualize
 
 
+
+
+
 # Root directory of the project
 ROOT_DIR = os.getcwd()
 
@@ -66,23 +69,26 @@ class_names = ['BG', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',
 # Load a random image from the images folder
 # file_names = next(os.walk(IMAGE_DIR))[2]
 # image = skimage.io.imread(os.path.join(IMAGE_DIR, random.choice(file_names)))
+path = '/home/sazadi/projects/objCompose/exp/person_umbrella'
+image_path = '%s/images/00021840-COCO_train2014_000000522464-fake_B.png'%path
+name = image_path.split('/')[-1]
+image = skimage.io.imread(image_path)
 
-image = skimage.io.imread('/home/sazadi/projects/objCompose/exp/person_umbrella/images/00039765-COCO_train2014_000000163068-fake_B.png')
+output_path = '%s/masks'%path
+if not os.path.exists(output_path):
+	os.makedirs(output_path)
 
 # Run detection
 results = model.detect([image], verbose=1)
-print(results)
-print(results[0])
 
 # Visualize results
 r = results[0]
-print(r['masks'])
 
-print(r['class_ids'])
+print([class_names[r['class_ids'][i]] for i in range(len(r['class_ids']))])
 
 print(r['scores'])
-# visualize.display_instances(image, r['rois'], r['masks'], r['class_ids'], 
-#                             class_names, r['scores'])
+visualize.display_instances(output_path, name, image, r['rois'], r['masks'], r['class_ids'], 
+                            class_names, r['scores'])
 
 
 
