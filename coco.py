@@ -30,7 +30,8 @@ Usage: import the module (see Jupyter notebooks for examples), or run from
 import os
 import time
 import numpy as np
-
+import sys
+sys.path.append('/home/sazadi/projects/objCompose/Mask_RCNN/coco/PythonAPI/')
 # Download and install the Python COCO tools from https://github.com/waleedka/coco
 # That's a fork from the original https://github.com/pdollar/coco with a bug
 # fix for Python 3.
